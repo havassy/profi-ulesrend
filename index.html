@@ -609,7 +609,7 @@ footer { margin-top:35px; text-align:center; color:#7c8a94; font-size:12px; }
 .help-header h2 {margin:0;border:0;padding:0;font-size:23px;}
 .help-content {padding:8px 24px 24px;line-height:1.65;}
 .help-content li {margin:8px 0;}.help-content h3 {margin:22px 0 8px;color:#24556b;}
-.help-note {border-left:4px solid #087f8c;background:#eef8f8;padding:12px 16px;}
+.help-details{border:1px solid #d6e3e9;border-radius:10px;margin:10px 0;background:#fff;overflow:hidden}.help-details summary{cursor:pointer;padding:13px 16px;font-weight:650;color:#184f67;background:#f0f7fa}.help-details summary:hover,.help-details summary:focus-visible{background:#deeff5}.help-details summary:focus-visible{outline:3px solid #297eaa;outline-offset:-3px}.help-details-body{padding:3px 16px 14px}.help-details-body h3{font-size:1.05em;margin:14px 0 7px}.help-note {border-left:4px solid #087f8c;background:#eef8f8;padding:12px 16px;}
 #importWarnings {white-space:pre-line;border-left:4px solid #aa6816;background:#fff5df;color:#69430f;padding:14px 18px;margin-top:12px;}
 .room-save-action {display:inline-flex;flex-direction:column;max-width:260px;vertical-align:top;}
 .room-save-action small {display:block;margin:0 10px 8px;font-size:13px;line-height:1.4;}
@@ -622,16 +622,16 @@ footer { margin-top:35px; text-align:center; color:#7c8a94; font-size:12px; }
     <section class="start-section">
         <h2>1. Kezdés</h2>
         <div class="start-actions">
-            <button class="btn btn-room-load" onclick="document.getElementById('roomInput').click()">Teremfájl betöltése</button>
+            <button class="btn btn-room-load" onclick="document.getElementById('roomInput').click()">Teremfájl feltöltése</button>
             <button class="btn btn-edit" onclick="openEditor()">Terem szerkesztése</button>
             <button class="btn btn-default" onclick="useDefaultRoom()">Eredeti, 35 fős terem</button>
-            <button class="btn btn-import" onclick="document.getElementById('fileInput').click()">Osztály Excel-fájljának betöltése</button>
+            <button class="btn btn-import" onclick="document.getElementById('fileInput').click()">Osztály Excel-fájljának feltöltése</button>
             <button class="btn btn-help" onclick="openHelp()">Használati útmutató</button>
         </div>
         <input type="file" id="fileInput" accept=".xlsx,.xls" hidden>
         <input type="file" id="roomInput" accept=".json" hidden>
-        <div id="uploadArea" class="upload-area"><p>Az Excel-fájlt ide is húzhatod.</p><small>Új Excel-sablonhoz kattints a „Teremfájl betöltése”, a „Terem szerkesztése” vagy az „Eredeti, 35 fős terem” gombra. Szerkesztés után kattints az „Elrendezés használata” gombra is. Ezután a „Terem és Excel-minta” részben a „Minta Excel letöltése” gombbal töltheted le a sablont, amely a teremelrendezést is tartalmazza. Meglévő, kitöltött Excel-fájlhoz használd az „Osztály Excel-fájljának betöltése” gombot.</small></div>
-        <p class="muted">A mentés fájlba történik. Újranyitáskor töltsd be a saját fájlodat — nincs automatikus böngészős visszaállítás.</p>
+        <div id="uploadArea" class="upload-area"><p>Az Excel-fájlt ide is húzhatod.</p><small>Új Excel-sablonhoz kattints a „Teremfájl feltöltése”, a „Terem szerkesztése” vagy az „Eredeti, 35 fős terem” gombra. Szerkesztés után kattints az „Elrendezés használata” gombra is. Ezután a „Terem és Excel-minta” részben a „Minta Excel letöltése” gombbal töltheted le a sablont, amely a teremelrendezést is tartalmazza. Meglévő, kitöltött Excel-fájlhoz használd az „Osztály Excel-fájljának feltöltése” gombot.</small></div>
+        <p class="muted">A mentés fájlba történik. Újranyitáskor töltsd fel a saját fájlodat — nincs automatikus böngészős visszaállítás.</p>
         <div id="fileStatus" class="status info" role="status" aria-live="polite" hidden></div>
         <div id="importWarnings" role="status" aria-live="polite" hidden></div>
     </section>
@@ -1366,44 +1366,41 @@ upload.addEventListener('drop',e=>{e.preventDefault();upload.classList.remove('d
 </dialog>
 <script>document.getElementById('seatingDecision').addEventListener('cancel',()=>{pendingPlan=null;});</script>
 
-<dialog id="helpDialog" aria-labelledby="helpTitle">
-<div class="help-header"><h2 id="helpTitle">Használati útmutató</h2><button class="btn btn-cancel" onclick="closeHelp()" autofocus>Bezárás</button></div>
-<div class="help-content">
-<h3>Első használat: előbb a terem, utána az Excel</h3>
+<dialog id="helpDialog" aria-labelledby="helpTitle"><div class="help-header"><h2 id="helpTitle">Használati útmutató</h2><button class="btn btn-cancel" onclick="closeHelp()" autofocus>Bezárás</button></div><div class="help-content"><h3>Első használat – 6 lépésben</h3><ol><li><strong>Állítsd be a terem padkiosztását.</strong> Válaszd a „Terem szerkesztése”, a „Teremfájl feltöltése” vagy az „Eredeti, 35 fős terem” lehetőséget. Szerkesztés után kattints az „Elrendezés használata” gombra.</li><li><strong>Töltsd le és töltsd ki az Excel-mintát.</strong> A „Minta Excel letöltése” gomb után az „Ülésrend” lapon add meg a tanulókat a helyükön, majd mentsd el a fájlt.</li><li><strong>Töltsd fel az osztály Excel-fájlját.</strong> Használd az „Osztály Excel-fájljának feltöltése” gombot, vagy húzd a fájlt a jelölt területre. Ellenőrizd a megjelenő beosztást.</li><li><strong>Jelöld a hiányzókat és a rögzített helyeket.</strong> Szükség esetén kapcsold be az irányított keverést is.</li><li><strong>Generálj új ülésrendet.</strong> Ellenőrizd az eredményt.</li><li><strong>Mentsd el vagy vetítsd ki.</strong> Az osztály beállításait külön is elmentheted a következő alkalomra.</li></ol><p class="help-note"><strong>Következő alkalommal:</strong> elég feltöltened a korábban elmentett osztály Excel-fájlját. A teremelrendezést a fájl tartalmazza; jelöld a hiányzókat, és generálj új beosztást. <strong>Fontos:</strong> nincs automatikus mentés, ezért bezárás előtt töltsd le, amit meg szeretnél őrizni.</p><h3>Részletes tudnivalók</h3><p>Az alábbi részeket csak akkor kell megnyitnod, ha valamelyik funkcióról többet szeretnél tudni.</p><details class="help-details"><summary>A terem beállítása és az Excel-minta kitöltése</summary><div class="help-details-body"><h3>Első használat: előbb a terem, utána az Excel</h3>
 <ol>
-<li><strong>Terem szerkesztése vagy teremfájl betöltése.</strong> Új padkiosztáshoz kattints a „Terem szerkesztése” gombra, majd add meg a sorokat és padoszlopokat. Az „Új rács készítése” után padonként válassz 1, 2 vagy 3 férőhelyet, illetve üres területet. Csak annyi férőhelyet adj meg, ahány ténylegesen használható. Kattints az „Elrendezés használata” gombra. Mentett teremfájlhoz a „Teremfájl betöltése” gombot használd. A beépített padkiosztáshoz kattints az „Eredeti, 35 fős terem” gombra.</li>
+<li><strong>Terem szerkesztése vagy teremfájl betöltése.</strong> Új padkiosztáshoz kattints a „Terem szerkesztése” gombra, majd add meg a sorokat és padoszlopokat. Az „Új rács készítése” után padonként válassz 1, 2 vagy 3 férőhelyet, illetve üres területet. Csak annyi férőhelyet adj meg, ahány ténylegesen használható. Kattints az „Elrendezés használata” gombra. Mentett teremfájlhoz a „Teremfájl feltöltése” gombot használd. A beépített padkiosztáshoz kattints az „Eredeti, 35 fős terem” gombra.</li>
 <li><strong>Kattints a „Minta Excel letöltése” gombra.</strong> A sablon az éppen beállított teremhez készül.</li>
 <li><strong>Az Excel „Ülésrend” lapján írd be az eredeti ülésrendet.</strong> A „Név 1”, „Név 2” stb. helyettesítő szövegeket cseréld ki, a nem használt helyekről töröld őket. Egy cellába egy tanuló kerüljön; az azonos nevű tanulókat különböztesd meg. A cellák helyét, a sorokat és oszlopokat ne rendezd át, ne egyesíts cellákat. A TÁBLA jelöléshez viszonyítva ellenőrizd a sorrendet a programban.</li>
 <li><strong>Opcionális beállítások a „Csoportok” lapon.</strong> A nevek képletekkel követik az ülésrendet, ezért itt ne írd át őket. A „Csoport” oszlopban két tetszőleges csoportot jelölhetsz, például A és B betűvel. A „Rögzített” oszlopba R kerülhet, ha az adott tanulónak a pontos helyén kell maradnia; különben hagyd üresen. A jelölések az adott sorhoz tartoznak: a nevek későbbi átrendezése után ellenőrizd őket.</li>
-<li><strong>Mentsd el és töltsd be az Excelt.</strong> Használd az „Osztály Excel-fájljának betöltése” gombot vagy húzd a fájlt a jelölt területre. Ellenőrizd a terem nevét, a megjelenő eredeti ülésrendet és a létszámot.</li>
-<li><strong>Jelöld a hiányzókat és a rögzítéseket, majd generálj.</strong> Szükség esetén kapcsold be a „Irányított keverés” lehetőséget. Az elkészült ülésrendet letöltheted vagy kivetítheted.</li>
+<li><strong>Mentsd el és töltsd fel az Excelt.</strong> Használd az „Osztály Excel-fájljának feltöltése” gombot vagy húzd a fájlt a jelölt területre. Ellenőrizd a terem nevét, a megjelenő eredeti ülésrendet és a létszámot.</li>
+<li><strong>Jelöld a hiányzókat és a rögzítéseket, majd generálj.</strong> Szükség esetén kapcsold be az „Irányított keverés” lehetőséget. Az elkészült ülésrendet letöltheted vagy kivetítheted.</li>
 </ol>
-<p class="help-note"><strong>Ha már van ehhez a teremhez készített, kitöltött új Excel-fájlod:</strong> következő alkalommal elég azt betölteni. A fájl a saját teremelrendezését is tartalmazza, és ezt állítja be. Nem kell előtte újra megszerkesztened a termet.</p>
-<h3>Jelenlét, rögzítés és keverés</h3>
+<p class="help-note"><strong>Ha már van ehhez a teremhez készített, kitöltött új Excel-fájlod:</strong> következő alkalommal elég azt feltölteni. A fájl a saját teremelrendezését is tartalmazza, és ezt állítja be. Nem kell előtte újra megszerkesztened a termet.</p>
+</div></details><details class="help-details"><summary>Hiányzók, rögzítések és keverési szabályok</summary><div class="help-details-body"><h3>Jelenlét, rögzítés és keverés</h3>
 <ul>
 <li><strong>Hiányzók:</strong> az eredeti ülésrenden a névre kattintva jelölhetők, piros színnel látszanak. Ismételt kattintással visszaállíthatók. A „Hiányzók visszaállítása” mindenkit jelenlévővé tesz.</li>
 <li><strong>Rögzített hely:</strong> a név alatti jelölőnégyzet a pontos eredeti ülőhelyet rögzíti; lila keret jelzi. A pad többi helye továbbra is keverhető. Ha a rögzített tanuló hiányzik, a helye felhasználható; visszatérése és új generálás után ismét a saját helyére kerül.</li>
 <li><strong>Irányított keverés:</strong> a kapcsoló alapból kikapcsolt. Az Excelben eltérő jelöléssel megadott tanulókat lehetőség szerint egy padhoz ülteti. A csoportosítás szempontja és az egyéni besorolások nem jelennek meg a kezelőfelületen vagy a vetítésben. A jelöletlen tanulók is helyet kapnak.</li>
 <li><strong>Párok és triók:</strong> a program a fizikai férőhelyeket és a rögzítéseket betartva először az egyedül ülők, majd a triók számát csökkenti a lehető legkisebbre. Az azonos számú egyedül ülővel és trióval járó lehetőségek közül a táblához közelebb eső sorokat tölti fel először. Rögzített hátsó helyek vagy eltérő padméretek miatt maradhatnak előrébb üres helyek; a rögzítéseket és a párosítás szabályait ez nem írja felül. Ha elkerülhetetlen az egyedül ülés vagy egynél több trió, külön döntést kér. Az elfogadás csak az adott generálásra érvényes.</li>
-<li><strong>Eredeti padtársak:</strong> a program lehetőség szerint elkerüli az ismételt együtt ülést, a triókon belül is. Ez nem feltétlen garancia: a rögzítések és a irányított keverés korlátozhatják a lehetőségeket. Mindig a betöltött eredeti beosztáshoz viszonyít, nem az előző sorsoláshoz.</li>
-<li><strong>Változtatás után:</strong> a jelenlét vagy rögzítés módosítása eltünteti a korábbi generált beosztást; készíts újat. A irányított keverés kapcsolója a következő generáláskor érvényesül. A generált ülésrend nem kattintható.</li>
+<li><strong>Eredeti padtársak:</strong> a program lehetőség szerint elkerüli az ismételt együtt ülést, a triókon belül is. Ez nem feltétlen garancia: a rögzítések és az irányított keverés korlátozhatják a lehetőségeket. Mindig a betöltött eredeti beosztáshoz viszonyít, nem az előző sorsoláshoz.</li>
+<li><strong>Változtatás után:</strong> a jelenlét vagy rögzítés módosítása eltünteti a korábbi generált beosztást; készíts újat. Az irányított keverés kapcsolója a következő generáláskor érvényesül. A generált ülésrend nem kattintható.</li>
 </ul>
-<h3>Vetítés: tanári és diák nézet</h3>
+</div></details><details class="help-details"><summary>Vetítés: tanári és diák nézet</summary><div class="help-details-body"><h3>Vetítés: tanári és diák nézet</h3>
 <p>Az eredeti és az új ülésrend külön vetítési nézetben nyitható meg. A „Tanár nézet” / „Diák nézet” gombbal vagy az <strong>M</strong> billentyűvel válthatsz nézőpontot. Tanári nézetben alul, diák nézetben felül van a tábla jelölése. Ez csak a megjelenítést fordítja meg, a tényleges ülőhelyeket nem változtatja. Az <strong>Esc</strong> billentyűvel vagy a „Bezárás” gombbal léphetsz ki. A rögzítés jelölése vetítéskor nem látható.</p>
-<h3>Mit és hogyan érdemes menteni?</h3>
+</div></details><details class="help-details"><summary>Mit és hogyan érdemes menteni?</summary><div class="help-details-body"><h3>Mit és hogyan érdemes menteni?</h3>
 <ul>
 <li><strong>Terem mentése fájlba:</strong> JSON-fájl, csak a padkiosztással, tanulónevek nélkül. Ugyanahhoz a teremhez több osztály sablonját is elkészítheted.</li>
 <li><strong>Osztály és rögzítések mentése:</strong> az eredeti ülésrendet, a csoportbesorolásokat, a rögzítéseket és a termet menti Excelbe. A napi hiányzásokat nem tárolja. Ezt válaszd a következő alkalom előkészítéséhez.</li>
 <li><strong>Az új ülésrend „Letöltés” gombja:</strong> az elkészült kiosztást menti, csak az elhelyezett jelenlévőkkel. Ha ezt töltöd vissza, ez lesz az új kiinduló ülésrend.</li>
 </ul>
 <p>A feldolgozás helyben, a böngészőben történik, internetkapcsolat nélkül is működik. Nincs automatikus böngészős mentés: bezárás előtt a szükséges fájlokat töltsd le. A terem módosítása megerősítés után törli a betöltött osztályt és a rögzítéseket a programból; a már elmentett fájlokat nem változtatja meg.</p>
-<h3>Ha nem megfelelő Excelt töltesz be</h3>
+</div></details><details class="help-details"><summary>Hibás Excel-fájlok és fontos korlátok</summary><div class="help-details-body"><h3>Ha nem megfelelő Excelt töltesz fel</h3>
 <ul>
 <li>A program jelzi többek között a hibás fájltípust, a 20 MB feletti fájlt, a hiányzó neveket, az azonos nevek ismétlődését, a padkiosztáson kívüli adatokat, az ülőhelyeket érintő egyesített cellákat, valamint a hibás teremadatokat és rögzítéseket.</li>
-<li>A régi, beágyazott teremadat nélküli Excel az eredeti 35 férőhelyes teremhez tartozónak számít. Más teremhez használd a „Teremfájl betöltése” vagy a „Terem szerkesztése” gombot. Szerkesztés után kattints az „Elrendezés használata” gombra. A „Minta Excel letöltése” gombbal tölts le új sablont, és abba másold át a neveket a megfelelő helyekre.</li>
-<li>Új Excel betöltésekor a fájlban tárolt terem az irányadó, nem az előzőleg a felületen beállított. A program jelzi, ha eltérő padkiosztás töltődik be.</li>
+<li>A régi, beágyazott teremadat nélküli Excel az eredeti 35 férőhelyes teremhez tartozónak számít. Más teremhez használd a „Teremfájl feltöltése” vagy a „Terem szerkesztése” gombot. Szerkesztés után kattints az „Elrendezés használata” gombra. A „Minta Excel letöltése” gombbal tölts le új sablont, és abba másold át a neveket a megfelelő helyekre.</li>
+<li>Új Excel feltöltésekor a fájlban tárolt terem az irányadó, nem az előzőleg a felületen beállított. A program jelzi, ha eltérő padkiosztás töltődik be.</li>
 <li><strong>A program nem ismeri a valós tantermet.</strong> Nem tudja felismerni, ha a nevek szabályos cellákban vannak, de rossz padhoz kerültek, ha egy tanulót kihagytál, vagy ha egy érvényes csoportjelölés/rögzítés nem a kívánt személyhez tartozik. A betöltött eredeti beosztást mindig nézd át.</li>
 </ul>
-</div></dialog>
+</div></details></div></dialog>
 </body>
 </html>
